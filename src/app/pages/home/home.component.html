@@ -1,0 +1,8 @@
+<div class="home">
+  <app-button
+    [label]="walletAddress() ? 'Connected' : 'Connect'"
+    color="green"
+    [size]="18"
+    (onClick)="connectWallet()"></app-button>
+  <p *ngIf="walletAddress()">Address: {{ walletAddress() }}</p>
+</div>
