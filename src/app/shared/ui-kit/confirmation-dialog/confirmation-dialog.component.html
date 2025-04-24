@@ -1,0 +1,20 @@
+<app-dialog>
+  <div class="mb-2">
+    @for(block of config().body; track $index) {
+    @for(row of block.rows; track $index) {
+    <div class="body-row" [ngStyle]="{ 'font-size.px': row.fontSize, 'color': row.color }">
+      {{ row.content }}
+    </div>
+    }
+    }
+  </div>
+
+  <div dialog-buttons>
+    @for(button of config().buttons; track $index) {
+    <app-button
+      [label]="button.label"
+      [severity]="button.severity"
+      (onClick)="ref.close(button.action)"></app-button>
+    }
+  </div>
+</app-dialog>

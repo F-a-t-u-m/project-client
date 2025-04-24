@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { ButtonComponent } from '../../shared/ui-kit/button/button.component';
+import { Router } from '@angular/router';
 
 interface EthereumProvider {
   request: (args: { method: string; params?: unknown[] }) => Promise<any>;
@@ -21,6 +22,7 @@ declare global {
 })
 export class HomeComponent {
   private readonly apiService = inject(ApiService);
+  private readonly router = inject(Router);
 
   protected readonly walletAddress = signal<string | null>(null);
 
@@ -44,5 +46,11 @@ export class HomeComponent {
       console.error('MetaMask is not installed or not available!');
       alert('Please install MetaMask!');
     }
+  }
+
+  protected openModalsPage() {
+    console.log('here');
+
+    this.router.navigate(['/test-modals']);
   }
 }

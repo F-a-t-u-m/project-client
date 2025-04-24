@@ -1,8 +1,9 @@
 <div class="home">
   <app-button
-    [label]="walletAddress() ? 'Connected' : 'Connect'"
-    color="green"
-    [size]="18"
+    [label]="'Connect'"
     (onClick)="connectWallet()"></app-button>
-  <p *ngIf="walletAddress()">Address: {{ walletAddress() }}</p>
+  <app-button
+    [label]="'Modals Page'"
+    (onClick)="openModalsPage()"></app-button>
+  <!-- <p *ngIf="walletAddress()">Address: {{ walletAddress() }}</p> -->
 </div>
