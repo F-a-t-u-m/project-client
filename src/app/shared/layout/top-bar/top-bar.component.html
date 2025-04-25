@@ -1,0 +1,27 @@
+<p-toolbar class="custom-toolbar">
+  <ng-template pTemplate="start">
+    <a href="https://twitter.com" target="_blank" class="icon-button">
+      <i class="pi pi-twitter" style="font-size: 1.4rem"></i>
+    </a>
+    <a href="https://discord.com" target="_blank" class="icon-button">
+      <i class="pi pi-discord" style="font-size: 1.4rem"></i>
+    </a>
+  </ng-template>
+
+  <ng-template pTemplate="center">
+    <span class="logo">SNAKE</span>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <app-button
+      [label]="walletAddress() ? 'Connected' : 'Connect'"
+      color="red"
+      [size]="20"
+      (onClick)="connectWallet()"
+    ></app-button>
+  </ng-template>
+</p-toolbar>
+
+@if (walletAddress()) {
+  <p class="address">Address: {{ walletAddress() }}</p>
+}

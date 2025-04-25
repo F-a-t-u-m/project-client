@@ -1,0 +1,50 @@
+.leaderboard{
+    text-align: center;
+    h2{
+      text-transform: uppercase;
+    }
+}
+.top-content{
+    flex: 1;
+    display: flex;
+    gap: 2rem;
+    .intro-text{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1.75rem;
+      font-size: 1.75rem;
+      line-height: 3.25rem;
+
+    }
+    .intro-image{
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+      }
+    }
+}
+
+.play-button{
+    text-align: center;
+    button{
+      font-size: 4rem !important;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+}
+
+.count-fee{
+  margin-left: 1rem;
+  p{
+    text-align: center;
+    padding: 1rem;
+    justify-content: center;
+  }
+}

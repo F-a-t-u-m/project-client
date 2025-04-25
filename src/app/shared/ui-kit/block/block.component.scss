@@ -1,0 +1,11 @@
+.block-wrapper{
+    .block {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        padding: 1rem;
+        margin: 2rem 0;
+        background: linear-gradient(#EB7397, #B94567); // Default background
+        border: 20px solid #762B41; // Default border
+      }
+}

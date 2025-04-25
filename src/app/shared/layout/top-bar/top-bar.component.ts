@@ -1,10 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService } from '../../shared/services/api.service';
-import { ButtonComponent } from '../../shared/ui-kit/button/button.component';
-import { BlockComponent } from '../../shared/ui-kit/block/block.component';
-import { ContainerComponent } from '../../shared/ui-kit/container/container.component';
-import { TableComponent } from '../../shared/ui-kit/table/table.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { ApiService } from '../../services/api.service';
+import { ButtonComponent } from '../../ui-kit/button/button.component';
+
 interface EthereumProvider {
   request: (args: { method: string; params?: unknown[] }) => Promise<any>;
 }
@@ -14,19 +13,19 @@ declare global {
     ethereum?: EthereumProvider;
   }
 }
-
 @Component({
-  selector: 'app-home',
+  selector: 'app-top-bar',
   standalone: true,
-  imports: [BlockComponent, ContainerComponent, TableComponent, ButtonComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  imports: [ToolbarModule, ButtonModule, ButtonComponent],
+  templateUrl: './top-bar.component.html',
+  styleUrls: ['./top-bar.component.scss'],
 })
-export class HomeComponent {
+
+export class TopBarComponent {
   private readonly apiService = inject(ApiService);
 
   protected readonly walletAddress = signal<string | null>(null);
-  constructor(private router: Router) {}
+
   async connectWallet() {
     if (typeof window !== 'undefined' && window.ethereum) {
       const ethereum = window.ethereum;
@@ -47,8 +46,5 @@ export class HomeComponent {
       console.error('MetaMask is not installed or not available!');
       alert('Please install MetaMask!');
     }
-  }
-  navigateToGame() {
-    this.router.navigate(['/game']);
   }
 }

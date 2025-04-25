@@ -1,0 +1,32 @@
+@mixin step2v2($width, $color, $bgcolor) {
+  box-shadow:
+    $width 0 $bgcolor,
+    -$width 0 $bgcolor,
+    0 (-$width) $bgcolor,
+    0 $width $bgcolor,
+    2 * $width 0 $color,
+    -2 * $width 0 $color,
+    0 (-2 * $width) $color,
+    0 2 * $width $color,
+    0 0 0 $width $color;
+  margin: 2 * $width auto;
+}
+
+// Host styling for pixel button
+:host ::ng-deep .pixel-button .p-button {
+  background: black !important;
+  color: white !important;
+  text-transform: uppercase;
+  padding: 0.25rem 1.5rem !important;
+  border: none !important;
+  cursor: pointer;
+  border-radius: 0 !important;
+  font-size: var(--custom-font-size, 1.25rem);
+
+  @include step2v2(0.25em, white, black);
+}
+
+// Fallback font-size, or global override
+:host ::ng-deep .p-button {
+  font-size: var(--custom-font-size, 1.25rem);
+}
