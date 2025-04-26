@@ -11,7 +11,7 @@
             <p>No PvP, no pressure — just retro vibes and blockchain gains.</p>
           </div>
           <div class="intro-image">
-            <img src="assets/image/snake.svg" alt="Snake">
+            <img src="assets/images/snake.svg" alt="Snake">
           </div>
         </div>
         <div class="play-button">
@@ -24,43 +24,42 @@
       </app-block>
     </div>
 
-    <div class=""></div>
-    <div class="col-5">
-      <app-block>
-        <app-block
-          class="leaderboard"
-          [background]="innerBlock.backgroundLeaderboard"
-          [border]="innerBlock.border">
-          <h2 class="leadernboard-headline">Leaderboard</h2>
-          <app-table></app-table>
-        </app-block>
+    <div class="flex flex-row justify-content-between col-12">
+      <div class="col-5">
+        <app-block>
+          <app-block
+            class="leaderboard"
+            [background]="innerBlock.backgroundLeaderboard"
+            [border]="innerBlock.border">
+            <h2 class="leadernboard-headline">Leaderboard</h2>
+            <app-table></app-table>
+          </app-block>
 
-        <app-block
-          [background]="innerBlock.backgroundMyScore"
-          [border]="innerBlock.border">
-          My Score
+          <app-block
+            [background]="innerBlock.backgroundMyScore"
+            [border]="innerBlock.border">
+            My Score
+          </app-block>
         </app-block>
-      </app-block>
-    </div>
+      </div>
 
-    <div class="col-2"></div>
+      <div class="col-5">
+        <app-block>
+          <app-block
+            class="count-fee"
+            [background]="innerBlock.backgroundFeeToPay"
+            [border]="innerBlock.border">
+            <p>Fee to play</p>
+            <p>1 ETH</p>
+          </app-block>
 
-    <div class="col-5">
-      <app-block>
-        <app-block
-          class="count-fee"
-          [background]="innerBlock.backgroundFeeToPay"
-          [border]="innerBlock.border">
-          <p>Fee to play</p>
-          <p>1 ETH</p>
+          <app-block
+            [background]="innerBlock.backgroundDailyPool"
+            [border]="innerBlock.border">
+            Daily Pool
+          </app-block>
         </app-block>
-
-        <app-block
-          [background]="innerBlock.backgroundDailyPool"
-          [border]="innerBlock.border">
-          Daily Pool
-        </app-block>
-      </app-block>
+      </div>
     </div>
 
     <div class="col-12">

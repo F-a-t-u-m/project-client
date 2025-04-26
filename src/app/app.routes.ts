@@ -11,4 +11,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/modals-page/modals-page.component').then((c) => c.ModalsPageComponent),
   },
+  {
+    path: 'game',
+    loadComponent: () =>
+      import('./pages/modals-page/modals-page.component').then((c) => c.ModalsPageComponent),
+  },
 ];

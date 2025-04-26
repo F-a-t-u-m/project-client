@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonComponent } from '../../shared/ui-kit/button/button.component';
 import { BlockComponent } from '../../shared/ui-kit/block/block.component';
 import { TableComponent } from '../../shared/ui-kit/table/table.component';
@@ -27,35 +27,13 @@ export class HomeComponent {
   private readonly router = inject(Router);
 
   protected readonly innerBlock = INNER_BLOCK;
-  protected readonly walletAddress = signal<string | null>(null);
 
-  async connectWallet() {
-    if (typeof window !== 'undefined' && window.ethereum) {
-      const ethereum = window.ethereum;
 
-      try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const address = accounts[0];
-        this.walletAddress.set(address);
-        console.log('Connected account:', address);
-
-        // TODO: надіслати адресу на бекенд
-
-      } catch (error) {
-        console.error('User rejected wallet connection:', error);
-      }
-    } else {
-      console.error('MetaMask is not installed or not available!');
-      alert('Please install MetaMask!');
-    }
-  }
   navigateToGame() {
     this.router.navigate(['/game']);
   }
 
   protected openModalsPage() {
-    console.log('here');
-
     this.router.navigate(['/test-modals']);
   }
 }

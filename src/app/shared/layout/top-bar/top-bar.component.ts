@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-import { ApiService } from '../../services/api.service';
 import { ButtonComponent } from '../../ui-kit/button/button.component';
 
 interface EthereumProvider {
@@ -22,8 +21,6 @@ declare global {
 })
 
 export class TopBarComponent {
-  private readonly apiService = inject(ApiService);
-
   protected readonly walletAddress = signal<string | null>(null);
 
   async connectWallet() {
@@ -37,7 +34,6 @@ export class TopBarComponent {
         console.log('Connected account:', address);
 
         // TODO: надіслати адресу на бекенд
-        // await this.apiService.sendWalletAddress(address);
 
       } catch (error) {
         console.error('User rejected wallet connection:', error);
