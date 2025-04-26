@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { ButtonComponent } from '../../shared/ui-kit/button/button.component';
 import { BlockComponent } from '../../shared/ui-kit/block/block.component';
 import { TableComponent } from '../../shared/ui-kit/table/table.component';
 import { LayoutComponent } from '../../shared/layout/index/index.component';
 import { INNER_BLOCK } from './configs/inner-block.config';
+import { Router } from '@angular/router';
 
 interface EthereumProvider {
   request: (args: { method: string; params?: unknown[] }) => Promise<any>;
@@ -24,10 +24,11 @@ declare global {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  protected readonly innerBlock = INNER_BLOCK;
+  private readonly router = inject(Router);
 
+  protected readonly innerBlock = INNER_BLOCK;
   protected readonly walletAddress = signal<string | null>(null);
-  constructor(private router: Router) {}
+
   async connectWallet() {
     if (typeof window !== 'undefined' && window.ethereum) {
       const ethereum = window.ethereum;
@@ -50,5 +51,11 @@ export class HomeComponent {
   }
   navigateToGame() {
     this.router.navigate(['/game']);
+  }
+
+  protected openModalsPage() {
+    console.log('here');
+
+    this.router.navigate(['/test-modals']);
   }
 }
