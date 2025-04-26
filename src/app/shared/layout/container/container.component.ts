@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-container',
@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './container.component.scss'
 })
 export class ContainerComponent {
-  @Input() maxWidth = '1320px';  // default max width
-  @Input() padding = '2rem 1rem';   // optional padding
+  public readonly maxWidth = input<string>('1320px');
+  public readonly padding = input<string>('2rem 1rem');
 }

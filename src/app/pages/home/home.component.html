@@ -1,64 +1,71 @@
-<app-container>
+<app-layout>
   <div class="grid grid-cols-12">
 
     <div class="col-12">
       <app-block class="intro-block">
         <div class="top-content">
-        <div class="intro-text">
-          <p>Snake. Play. Earn.</p>
-          <p>Ride your snake, collect drops, and climb the leaderboard.</p>
-          <p>Play daily, unlock skins, and earn rewards just by moving smart.</p>
-          <p>No PvP, no pressure — just retro vibes and blockchain gains.</p>
+          <div class="intro-text">
+            <p>Snake. Play. Earn.</p>
+            <p>Ride your snake, collect drops, and climb the leaderboard.</p>
+            <p>Play daily, unlock skins, and earn rewards just by moving smart.</p>
+            <p>No PvP, no pressure — just retro vibes and blockchain gains.</p>
+          </div>
+          <div class="intro-image">
+            <img src="assets/image/snake.svg" alt="Snake">
+          </div>
         </div>
-        <div class="intro-image">
-          <img src="assets/image/snake.svg" alt="Snake">
-        </div>
-      </div>
         <div class="play-button">
           <app-button
-            [label]="'Play'" 
+            [label]="'Play'"
             [size]="64"
             (onClick)="navigateToGame()">
           </app-button>
         </div>
       </app-block>
     </div>
-  
+
+    <div class=""></div>
     <div class="col-5">
       <app-block>
-        <app-block class="leaderboard" 
-        background="linear-gradient(#AA4997, #4C255B)"
-        border="20px solid #d35a7e"
-        >
+        <app-block
+          class="leaderboard"
+          [background]="innerBlock.backgroundLeaderboard"
+          [border]="innerBlock.border">
           <h2 class="leadernboard-headline">Leaderboard</h2>
           <app-table></app-table>
         </app-block>
+
         <app-block
-          background="linear-gradient(#9B5F36, #423400)"
-          border="20px solid #d35a7e">
-            My Score
+          [background]="innerBlock.backgroundMyScore"
+          [border]="innerBlock.border">
+          My Score
         </app-block>
       </app-block>
     </div>
+
     <div class="col-2"></div>
+
     <div class="col-5">
       <app-block>
-        <app-block class="count-fee"
-          background="linear-gradient(#C14339, #611F09)"
-          border="20px solid #d35a7e">
-            <p>Fee to play</p>
-            <p>1 ETH</p>
+        <app-block
+          class="count-fee"
+          [background]="innerBlock.backgroundFeeToPay"
+          [border]="innerBlock.border">
+          <p>Fee to play</p>
+          <p>1 ETH</p>
         </app-block>
-        <app-block 
-          background="linear-gradient(#E5003C, #7E0010)"
-          border="20px solid #d35a7e">
-            Daily Pool
+
+        <app-block
+          [background]="innerBlock.backgroundDailyPool"
+          [border]="innerBlock.border">
+          Daily Pool
         </app-block>
       </app-block>
     </div>
-  
+
     <div class="col-12">
       <app-block>How To Play</app-block>
     </div>
+
   </div>
-</app-container>
+</app-layout>

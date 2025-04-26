@@ -1,0 +1,150 @@
+@use "../custom/variables";
+
+//Main Container
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  display: block;
+  height: 100%;
+  position: relative;
+
+  @media (min-width: 576px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  @media (min-width: 992px) {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  @media (min-width: 1400px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+
+//Block
+.block-wrapper {
+  .block {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 1rem;
+    margin: 2rem 0;
+    background: linear-gradient(#EB7397, #B94567);
+    border: 20px solid #762B41;
+  }
+}
+
+
+//Button
+@mixin step2v2($width, $color, $bgcolor) {
+  box-shadow:
+    $width 0 $bgcolor,
+    -$width 0 $bgcolor,
+    0 (-$width) $bgcolor,
+    0 $width $bgcolor,
+    2 * $width 0 $color,
+    -2 * $width 0 $color,
+    0 (-2 * $width) $color,
+    0 2 * $width $color,
+    0 0 0 $width $color;
+  margin: 2 * $width auto;
+}
+
+.pixel-button .p-button {
+  background: black;
+  color: white;
+  text-transform: uppercase;
+  padding: 0.25rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  font-size: var(--custom-font-size, 1.25rem);
+
+  @include step2v2(0.25em, white, black);
+}
+
+.p-button {
+  font-size: var(--custom-font-size, 1.25rem);
+}
+
+
+//Table
+.p-datatable-thead>tr>th {
+  border: none;
+  text-align: center;
+  background: transparent;
+}
+
+.p-datatable-tbody>tr {
+  background: transparent;
+}
+
+.p-datatable-tbody>tr>td {
+  border: none;
+  text-align: center;
+}
+
+
+//Header
+.p-toolbar {
+  background: #762B41;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0.75rem 6.5rem;
+  .p-toolbar-group-start,
+  .p-toolbar-group-center,
+  .p-toolbar-group-end {
+    align-items: center;
+  }
+}
+
+.icon-button {
+  background: black;
+  padding: 0.25rem .3rem .1rem .3rem;
+  border: 3px solid white;
+  color: white;
+  margin-right: 1.2rem;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.address {
+  margin-top: 0.5rem;
+  text-align: right;
+  color: white;
+  font-size: 0.85rem;
+}
+
+
+
+//Footer
+.footer{
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding-bottom: 1rem;
+}

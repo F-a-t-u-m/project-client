@@ -17,11 +17,10 @@
       [label]="walletAddress() ? 'Connected' : 'Connect'"
       color="red"
       [size]="20"
-      (onClick)="connectWallet()"
-    ></app-button>
+      (onClick)="connectWallet()"></app-button>
   </ng-template>
 </p-toolbar>
 
 @if (walletAddress()) {
-  <p class="address">Address: {{ walletAddress() }}</p>
+<p class="address">Address: {{ walletAddress() }}</p>
 }

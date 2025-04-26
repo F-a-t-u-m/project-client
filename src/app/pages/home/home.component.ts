@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../../shared/services/api.service';
 import { ButtonComponent } from '../../shared/ui-kit/button/button.component';
 import { BlockComponent } from '../../shared/ui-kit/block/block.component';
-import { ContainerComponent } from '../../shared/ui-kit/container/container.component';
 import { TableComponent } from '../../shared/ui-kit/table/table.component';
+import { LayoutComponent } from '../../shared/layout/index/index.component';
+import { INNER_BLOCK } from './configs/inner-block.config';
+
 interface EthereumProvider {
   request: (args: { method: string; params?: unknown[] }) => Promise<any>;
 }
@@ -18,12 +19,12 @@ declare global {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BlockComponent, ContainerComponent, TableComponent, ButtonComponent],
+  imports: [BlockComponent, LayoutComponent, TableComponent, ButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  private readonly apiService = inject(ApiService);
+  protected readonly innerBlock = INNER_BLOCK;
 
   protected readonly walletAddress = signal<string | null>(null);
   constructor(private router: Router) {}
@@ -38,7 +39,6 @@ export class HomeComponent {
         console.log('Connected account:', address);
 
         // TODO: надіслати адресу на бекенд
-        // await this.apiService.sendWalletAddress(address);
 
       } catch (error) {
         console.error('User rejected wallet connection:', error);

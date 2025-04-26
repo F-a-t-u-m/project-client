@@ -1,4 +1,4 @@
-<p-table [value]="players" >
+<p-table [value]="items()" >
   <ng-template pTemplate="header">
     <tr>
       <th>Place</th>
@@ -7,11 +7,10 @@
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-player let-i="rowIndex">
+  <ng-template pTemplate="body" let-player let-index="rowIndex">
     <tr>
-      <!-- Dynamically generate Place based on points rank -->
-      <td>{{ getPlayerPlace(i) }}</td>
-      <td>{{ truncateAddress(player.address) }}</td>
+      <td>{{ index + 1 }}</td>
+      <td>{{ player.address | truncateAddress }}</td>
       <td>{{ player.points }}</td>
     </tr>
   </ng-template>

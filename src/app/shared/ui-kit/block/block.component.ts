@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-block',
@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './block.component.scss'
 })
 export class BlockComponent {
-  @Input() width = 'auto';  // e.g., '300px' or '25%'
-  @Input() height = 'auto'; // e.g., '200px' or 'fit-content'
-  @Input() background = 'linear-gradient(#EB7397, #B94567)'; // default background
-  @Input() border = '20px solid #762B41'; // default border
+  public readonly width = input<string>('auto');
+  public readonly height = input<string>('auto');
+  public readonly background = input<string>('linear-gradient(#EB7397, #B94567)');
+  public readonly border = input<string>('20px solid #762B41');
 }
