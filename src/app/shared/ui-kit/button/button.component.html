@@ -1,7 +1,7 @@
 <p-button
   class="pixel-button"
-  [label]="label()"
-  [raised]="false"
-  [rounded]="false"
-  (click)="onClick.emit()"
-></p-button>
+  (click)="onClick.emit()">
+  <ng-template pTemplate="label">
+    <span [style]="{ 'fontSize': size() + 'rem' }">{{ label() }}</span>
+  </ng-template>
+</p-button>

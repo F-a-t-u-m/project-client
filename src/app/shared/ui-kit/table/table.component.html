@@ -1,17 +1,19 @@
-<p-table [value]="items()" >
+<p-table [value]="data()">
   <ng-template pTemplate="header">
     <tr>
-      <th>Place</th>
-      <th>Address</th>
-      <th>Points</th>
+      @for(header of config().headers; track $index) {
+      <th> {{ header.label }} </th>
+      }
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-player let-index="rowIndex">
+  <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
     <tr>
-      <td>{{ index + 1 }}</td>
-      <td>{{ player.address | truncateAddress }}</td>
-      <td>{{ player.points }}</td>
+      @for(block of config().content; track $index) {
+      <td>
+        {{ block.labelFormat(block.label === 'rowIndex' ? rowIndex : row[block.label]) | dynamicPipe: block.pipe }}
+      </td>
+      }
     </tr>
   </ng-template>
 </p-table>

@@ -17,7 +17,7 @@
         <div class="play-button">
           <app-button
             [label]="'Play'"
-            [size]="64"
+            [size]="3.5"
             (onClick)="navigateToGame()">
           </app-button>
         </div>
@@ -31,14 +31,15 @@
             class="leaderboard"
             [background]="innerBlock.backgroundLeaderboard"
             [border]="innerBlock.border">
-            <h2 class="leadernboard-headline">Leaderboard</h2>
-            <app-table></app-table>
+            <h2 class="leadernboard-headline py-2">Leaderboard</h2>
+            <app-table [config]="leaderboardTableConfig"  [data]="players()"></app-table>
           </app-block>
 
           <app-block
             [background]="innerBlock.backgroundMyScore"
             [border]="innerBlock.border">
-            My Score
+            <h3 class="py-2"> My Score</h3>
+            <app-table [config]="myScoreTableConfig"  [data]="myScoreData"></app-table>
           </app-block>
         </app-block>
       </div>

@@ -1,15 +1,17 @@
 import { Component, input } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { PLAYERS_MOCK } from '../../mocks/players.mock';
-import { TruncateAddressPipe } from '../../pipes/truncate-address.pipe';
+import { TableConfig } from './models/table.model';
+import { DynamicPipe } from '../../pipes/dynamic.pipe';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, TruncateAddressPipe],
+  imports: [TableModule, DynamicPipe, JsonPipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  public readonly items = input<any>(PLAYERS_MOCK);
+  public readonly data = input.required<any[]>();
+  public readonly config = input.required<TableConfig>();
 }

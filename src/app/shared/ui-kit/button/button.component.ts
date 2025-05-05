@@ -1,4 +1,4 @@
-import { Component, HostBinding, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ButtonModule, ButtonSeverity } from 'primeng/button';
 
 @Component({
@@ -11,11 +11,6 @@ import { ButtonModule, ButtonSeverity } from 'primeng/button';
 export class ButtonComponent {
   public readonly label = input<string>('Click');
   public readonly severity = input<ButtonSeverity>('primary');
-  public readonly size = input<number>(16);
+  public readonly size = input<number>(1.25); // rem
   public readonly onClick = output<void>();
-  
-  @HostBinding('style.--custom-font-size.px')
-  get fontSize(): number {
-    return this.size();
-  }
 }

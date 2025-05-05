@@ -74,13 +74,8 @@
   border: none;
   cursor: pointer;
   border-radius: 0;
-  font-size: var(--custom-font-size, 1.25rem);
 
-  @include step2v2(0.25em, white, black);
-}
-
-.p-button {
-  font-size: var(--custom-font-size, 1.25rem);
+  @include step2v2(0.35rem, white, black);
 }
 
 

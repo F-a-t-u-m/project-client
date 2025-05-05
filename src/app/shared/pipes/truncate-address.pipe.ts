@@ -1,11 +1,15 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'truncateAddress'
+  name: 'truncateAddress',
+  standalone: true,
 })
+@Injectable({ providedIn: 'root' })
 export class TruncateAddressPipe implements PipeTransform {
-  transform(address: string): string {
-    if (!address) return '';
-    return address.substring(0, 6) + '...' + address.substring(address.length - 4);
+  transform(value: string): string {
+    console.log(value);
+
+    if (!value) return '';
+    return value?.slice(0, 6) + '...' + value?.slice(-4);
   }
 }

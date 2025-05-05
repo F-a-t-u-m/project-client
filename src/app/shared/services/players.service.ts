@@ -25,10 +25,10 @@ export class PlayersService {
     return this.http.patch<PlayerDto>(`${this.baseUrl}/tx`, { address });
   }
 
-  getAll(): Observable<PlayerDto[]> {
+  getFirst10(): Observable<PlayerDto[]> {
     return this.http.get<PlayerDto[]>(this.baseUrl);
   }
-  
+
   getByAddress(address: string): Observable<PlayerDto> {
     const params = new HttpParams().set('address', address);
     return this.http.get<PlayerDto>(`${this.baseUrl}/address`, { params });
