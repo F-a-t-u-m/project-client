@@ -14,13 +14,9 @@
 
   <ng-template pTemplate="end">
     <app-button
-      [label]="walletAddress() ? 'Connected' : 'Connect'"
+      [label]="'Connect'"
       color="red"
       [size]="1.25"
       (onClick)="connectWallet()"></app-button>
   </ng-template>
 </p-toolbar>
-
-@if (walletAddress()) {
-<p class="address">Address: {{ walletAddress() }}</p>
-}

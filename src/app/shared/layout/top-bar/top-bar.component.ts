@@ -1,46 +1,42 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { ButtonComponent } from '../../ui-kit/button/button.component';
+import { TransactionsService } from '../../services/transactions.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConnectWalletDialogComponent } from '../../ui-kit/connect-wallet-dialog/connect-wallet-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 
-interface EthereumProvider {
-  request: (args: { method: string; params?: unknown[] }) => Promise<any>;
-}
-
-declare global {
-  interface Window {
-    ethereum?: EthereumProvider;
-  }
-}
 @Component({
   selector: 'app-top-bar',
   standalone: true,
   imports: [ToolbarModule, ButtonModule, ButtonComponent],
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
+  providers: [DialogService],
 })
-
 export class TopBarComponent {
-  protected readonly walletAddress = signal<string | null>(null);
+  private readonly transactionsService = inject(TransactionsService);
+  private readonly dialogService = inject(DialogService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  async connectWallet() {
-    if (typeof window !== 'undefined' && window.ethereum) {
-      const ethereum = window.ethereum;
-
-      try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const address = accounts[0];
-        this.walletAddress.set(address);
-        console.log('Connected account:', address);
-
-        // TODO: надіслати адресу на бекенд
-
-      } catch (error) {
-        console.error('User rejected wallet connection:', error);
-      }
-    } else {
-      console.error('MetaMask is not installed or not available!');
-      alert('Please install MetaMask!');
-    }
+  protected connectWallet() {
+    this.dialogService
+      .open(ConnectWalletDialogComponent, {
+        header: 'Test',
+      })
+      .onClose.pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap((wallet) => this.transactionsService.connectWallet()),
+      )
+      .subscribe({
+        next: (player) => {
+          console.log('Wallet registered/updated successfully:', player);
+        },
+        error: (err) => {
+          console.error('Failed to register wallet:', err);
+        },
+      });
   }
 }
