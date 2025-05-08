@@ -22,6 +22,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        @media (max-width: 768px) {
+          display: none;
+        }
 
       img {
         height: 100%;
@@ -30,7 +33,15 @@
       }
     }
 }
-
+@media (max-width: 768px) {
+  .col-12{
+    flex-direction: column;
+    .col-5{
+      width: 100%;
+    }
+  }
+}
+.col-12{}
 .play-button{
     text-align: center;
     button{
@@ -40,11 +51,21 @@
     }
 }
 
-.count-fee{
-  margin-left: 1rem;
+.stat-card{
   p{
     text-align: center;
-    padding: 1rem;
-    justify-content: center;
+    padding: 2rem 1rem;
+    font-size: 2rem;
+    line-height: 5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+.how-to-play{
+  font-size: 2rem;
+  line-height: 2.5rem;
+  text-align: center;
+  p{
+    line-height: 2.5rem;
   }
 }

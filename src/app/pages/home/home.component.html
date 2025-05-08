@@ -24,8 +24,8 @@
       </app-block>
     </div>
 
-    <div class="flex flex-row justify-content-between col-12">
-      <div class="col-5">
+    <div class="flex flex-col sm:flex-row col-12">
+      <div class="col-5 col-sm-12 sm:grid-col-12">
         <app-block>
           <app-block
             class="leaderboard"
@@ -34,7 +34,7 @@
             <h2 class="leadernboard-headline py-2">Leaderboard</h2>
             <app-table [config]="leaderboardTableConfig"  [data]="players()"></app-table>
           </app-block>
-
+          
           <app-block
             [background]="innerBlock.backgroundMyScore"
             [border]="innerBlock.border">
@@ -43,28 +43,42 @@
           </app-block>
         </app-block>
       </div>
-
-      <div class="col-5">
+      <div class="col-2"></div>
+      <div class="col-5 sm:grid-col-12">
         <app-block>
           <app-block
-            class="count-fee"
+            class="count-fee stat-card"
             [background]="innerBlock.backgroundFeeToPay"
-            [border]="innerBlock.border">
-            <p>Fee to play</p>
-            <p>1 ETH</p>
+            [border]="innerBlock.border"
+            [margin]="innerBlock.marginStatCard"
+            >
+            
+            <p>Fee to play <br>
+            1 ETH</p>
           </app-block>
 
           <app-block
+            class="stat-card"
             [background]="innerBlock.backgroundDailyPool"
-            [border]="innerBlock.border">
-            Daily Pool
+            [border]="innerBlock.border"
+            [margin]="innerBlock.marginStatCard"
+            >
+            <p>Daily pool <br>
+              1 ETH</p>
           </app-block>
         </app-block>
       </div>
     </div>
 
     <div class="col-12">
-      <app-block>How To Play</app-block>
+      <app-block class="how-to-play">
+        <h2>HOW TO PLAY</h2>
+        <p>Use ↑→↓← to control your snake.</p>
+          <p>Collect Drops. Each drop adds length and earns you points.</p>
+          <p>Avoid Yourself. Stay alive to keep stacking rewards.</p>
+          <p>Daily Pool. Take the top of leaderboard and get the daily prize pool.</p>
+          <p>Play Daily. Climb the leaderboard, unlock skins, and earn on-chain rewards.</p>
+      </app-block>
     </div>
 
   </div>
