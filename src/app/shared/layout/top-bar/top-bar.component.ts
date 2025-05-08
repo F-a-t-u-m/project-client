@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { ButtonComponent } from '../../ui-kit/button/button.component';
@@ -15,6 +15,7 @@ import { switchMap } from 'rxjs';
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
   providers: [DialogService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopBarComponent {
   private readonly transactionsService = inject(TransactionsService);
@@ -32,6 +33,7 @@ export class TopBarComponent {
       )
       .subscribe({
         next: (player) => {
+          this.transactionsService.updatePlayers.update((prev : boolean) => !prev)
           console.log('Wallet registered/updated successfully:', player);
         },
         error: (err) => {
