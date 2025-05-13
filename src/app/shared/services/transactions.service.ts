@@ -3,7 +3,7 @@ import { from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { PlayersService } from './players.service';
 import { PlayerDto } from '../models/player.model';
-import { ethers } from 'ethers';
+import Web3 from 'web3';
 
 interface EthereumProvider {
   request: (args: { method: string; params?: unknown[] }) => Promise<any>;
@@ -12,6 +12,7 @@ interface EthereumProvider {
 declare global {
   interface Window {
     ethereum?: EthereumProvider;
+    web3?: Web3;
   }
 }
 
@@ -21,20 +22,19 @@ export class TransactionsService {
   public readonly walletAddress = signal<string | null>(null);
   public readonly updatePlayers = signal<boolean>(false);
 
-  private provider: ethers.providers.Web3Provider | null = null;
-  private signer: ethers.Signer | null = null;
-  private readonly gameFee = ethers.utils.parseEther('0.0005');
+  private web3: Web3 | null = null;
+  private account: string | null = null;
+  private readonly gameFee = Web3.utils.toWei('0.0005', 'ether');
   private readonly recipientAddress = '0x1a981bB351d8216ba6AD873e3462aF69489F82B5';
-  private readonly fallbackProvider = new ethers.providers.JsonRpcProvider('https://1rpc.io/holesky');
 
   constructor() {
-    this.initProvider();
+    this.initWeb3();
   }
 
-  private initProvider(): void {
+  private initWeb3(): void {
     if (typeof window !== 'undefined' && window.ethereum) {
-      this.provider = new ethers.providers.Web3Provider(window.ethereum);
-      console.log('✅ Web3 provider initialized');
+      this.web3 = new Web3(window.ethereum as any);
+      console.log('✅ Web3 initialized');
     } else {
       console.error('❌ No Ethereum provider found');
       alert('MetaMask or a Web3-enabled wallet is required');
@@ -43,15 +43,15 @@ export class TransactionsService {
 
   connectWallet(): Observable<PlayerDto> {
     return this.requestWallet().pipe(
-      tap(address => {
+      tap((address) => {
         this.walletAddress.set(address);
-        this.signer = this.provider?.getSigner();
+        this.account = address;
       }),
-      switchMap(address => this.playersService.createOrUpdate(address)),
-      catchError(err => {
+      switchMap((address) => this.playersService.createOrUpdate(address)),
+      catchError((err) => {
         console.error('❌ Wallet connection or player update failed:', err);
         return throwError(() => new Error('Wallet connection failed'));
-      })
+      }),
     );
   }
 
@@ -62,10 +62,10 @@ export class TransactionsService {
           if (!accounts.length) throw new Error('No accounts returned');
           return accounts[0];
         }),
-        catchError(err => {
+        catchError((err) => {
           console.error('❌ Failed to request wallet:', err);
           return throwError(() => new Error('Failed to request wallet access'));
-        })
+        }),
       );
     } else {
       return throwError(() => new Error('No Ethereum provider detected'));
@@ -73,25 +73,26 @@ export class TransactionsService {
   }
 
   payTransactionFee(): Observable<boolean> {
-    if (!this.signer || !this.walletAddress()) {
-      console.error('❌ Signer or wallet address not found');
+    if (!this.web3 || !this.account) {
+      console.error('❌ Web3 or account not available');
       return of(false);
     }
 
-    return from(this.fallbackProvider.getGasPrice()).pipe(
-      switchMap(gasPrice => {
-        const tx = {
+    return from(this.web3.eth.getGasPrice()).pipe(
+      switchMap((gasPrice: bigint): Observable<boolean> => {
+        const doubledGasPrice = (BigInt(gasPrice) * 2n).toString();
+
+        const txParams = {
+          from: this.account!,
           to: this.recipientAddress,
           value: this.gameFee,
-          gasLimit: ethers.utils.hexlify(21000),
-          gasPrice: gasPrice.mul(2)
+          gas: 21000,
+          gasPrice: doubledGasPrice,
         };
 
-        return from(this.signer!.sendTransaction(tx)).pipe(
-          tap(sentTx => console.log('✅ Transaction sent:', sentTx.hash)),
-          switchMap(sentTx => from(sentTx.wait())),
-          tap(() => console.log('✅ Transaction confirmed')),
-          map(() => true)
+        return from(this.web3!.eth.sendTransaction(txParams)).pipe(
+          tap((receipt) => console.log('✅ Transaction confirmed:', receipt.transactionHash)),
+          map(() => true),
         );
       }),
       catchError((error: any) => {
@@ -100,7 +101,7 @@ export class TransactionsService {
           alert('Payment failed due to RPC issues. Try again later.');
         }
         return of(false);
-      })
+      }),
     );
   }
 }
