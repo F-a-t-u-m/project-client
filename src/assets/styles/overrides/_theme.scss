@@ -1,5 +1,8 @@
 @use "../custom/variables";
 
+.col-5{
+  padding: 0.5rem 0;
+}
 //Main Container
 .container {
   width: 100%;
@@ -39,7 +42,11 @@
 
 //Block
 .block-wrapper {
-  .block {
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .custom-block {
     display: flex;
     flex-direction: column;
     color: white;
@@ -47,6 +54,9 @@
     margin: 2rem 0;
     background: linear-gradient(#EB7397, #B94567);
     border: 20px solid #762B41;
+    min-height: 100%;
+    justify-content: center;
+    gap: 2rem;
   }
 }
 
@@ -75,7 +85,13 @@
   cursor: pointer;
   border-radius: 0;
 
-  @include step2v2(0.35rem, white, black);
+  @include step2v2(0.25em, white, black);
+}
+
+.pixel-button .p-button:not(:disabled):hover {
+  background: black;
+  color: white;
+  border: none;
 }
 
 
@@ -97,10 +113,13 @@
 
 
 //Header
+body{
+  padding-top: 70px;
+}
 .p-toolbar {
-  background: #762B41;
-  border: none;
-  border-radius: 0;
+  background: #762B41 !important;
+  border: none !important;
+  border-radius: 0 !important;
   box-shadow: none;
   padding: 0.75rem 6.5rem;
   .p-toolbar-group-start,
